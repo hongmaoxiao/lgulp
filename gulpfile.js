@@ -7,7 +7,7 @@ function defaultTask(done) {
   // var now = new Date();
   // var since = new Date(+now - 10 * 60 * 1000);
 
-  gulp.src('source/js/**/*.js', { base: 'source' })
+  gulp.src('src/**/*.js', { cwd: '../otherbase' })
     .pipe(minify())
     .pipe(gulp.dest('build'));
 
