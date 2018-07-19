@@ -35,14 +35,50 @@ var paths = {
 //   .pipe(gulp.dest(paths.scripts.dest));
 // }
 
-gulp.task('timing', function(done) {
-  setTimeout(function() {
-    log('this is a timing test!');
-    done();
-  }, 3000);
-})
+// gulp.task('timing', function(done) {
+//   setTimeout(function() {
+//     log('this is a timing test!');
+//     done();
+//   }, 3000);
+// })
 
-gulp.task('default', gulp.series('timing', function(done) {
-  log('default is running...');
+// gulp.task('default', gulp.series('timing', function(done) {
+//   log('default is running...');
+//   done();
+// }));
+
+gulp.task('one', function(done) {
+  log('gulp one');
   done();
-}));
+});
+
+gulp.task('two', function(done) {
+  log('gulp two');
+  done();
+});
+
+gulp.task('three', function(done) {
+  log('gulp three');
+  done();
+});
+
+gulp.task('four', gulp.series('one', 'two'));
+
+gulp.task('five',
+  gulp.series('four',
+    gulp.parallel('three', function(done) {
+      log('This is parallel with three');
+    })
+  )
+);
+
+function tree(done) {
+  // var out = gulp.tree();
+  var out = gulp.tree({
+    deep: true
+  });
+  log('output: ', JSON.stringify(out, null, 2));
+  done();
+}
+
+gulp.task('default', tree);
