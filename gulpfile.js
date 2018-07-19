@@ -1,5 +1,6 @@
 var gulp = require('gulp');
 var minify = require('gulp-minify');
+var log = require('fancy-log');
 
 var paths = {
   scripts: {
@@ -24,14 +25,24 @@ var paths = {
 
 // defaultTask.description = 'It is a default function';
 
-function watch() {
-  gulp.watch(paths.scripts.src, res_stream);
-}
+// function watch() {
+//   gulp.watch(paths.scripts.src, res_stream);
+// }
 
-function res_stream() {
-  return gulp.src(paths.scripts.src)
-  .pipe(minify())
-  .pipe(gulp.dest(paths.scripts.dest));
-}
+// function res_stream() {
+//   return gulp.src(paths.scripts.src)
+//   .pipe(minify())
+//   .pipe(gulp.dest(paths.scripts.dest));
+// }
 
-gulp.task('default', watch);
+gulp.task('timing', function(done) {
+  setTimeout(function() {
+    log('this is a timing test!');
+    done();
+  }, 3000);
+})
+
+gulp.task('default', gulp.series('timing', function(done) {
+  log('default is running...');
+  done();
+}));
