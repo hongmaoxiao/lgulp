@@ -13,3 +13,5 @@ function defaultTask(done) {
 
   done();
 }
+
+defaultTask.description = 'It is a default function';
